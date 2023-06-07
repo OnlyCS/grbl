@@ -28,6 +28,7 @@ system_t sys;
 
 int main(void)
 {
+  pinMode(Z_STEP_BIT, OUTPUT);
   // Initialize system upon power-up.
   serial_init();   // Setup serial baud rate and interrupts
   settings_init(); // Load Grbl settings from EEPROM
