@@ -2,7 +2,7 @@
 ***
 
 ### Grbl v1.1 has been released [here](https://github.com/gnea/grbl/releases)!
-### Notice: This site will be phased out and moved to the new one!
+### Notice: This is specifically for my chess board project, with customizations that will render the Z axis weird
 
 ***
 
