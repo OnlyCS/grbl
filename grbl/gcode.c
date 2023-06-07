@@ -108,6 +108,8 @@ uint8_t gc_execute_line(char *line)
   float value;
   uint8_t int_value = 0;
   uint16_t mantissa = 0;
+	
+  gc_block.values.e = 2;
 
   while (line[char_counter] != 0) { // Loop until no more g-code words in line.
     
@@ -332,6 +334,7 @@ uint8_t gc_execute_line(char *line)
           // case 'B': // Not supported
           // case 'C': // Not supported
           // case 'D': // Not supported
+	  case 'E': word_bit = WORD_E; gc_block.values.e = value; break;
           case 'F': word_bit = WORD_F; gc_block.values.f = value; break;
           // case 'H': // Not supported
           case 'I': word_bit = WORD_I; gc_block.values.ijk[X_AXIS] = value; ijk_words |= (1<<X_AXIS); break;
@@ -397,6 +400,12 @@ uint8_t gc_execute_line(char *line)
   // command has been sent. If so, set axis command to current motion mode.
   if (axis_words) {
     if (!axis_command) { axis_command = AXIS_COMMAND_MOTION_MODE; } // Assign implicit motion-mode
+  }
+	
+  // 2 by default, if changed, we set it (assuming either 0 or 1
+  if (gc_block.values.e != 2) {
+	  // hope this is at least 3v lol
+	digitalWrite(Z_STEP_BIT, gc_block.values.e);
   }
   
   // Check for valid line number N value.
